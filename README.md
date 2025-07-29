@@ -1,6 +1,8 @@
 # CFS CF Mock Project
 
-This project provides mock implementations for the CFS (Core Flight System) dependencies, specifically targeting the components with the naming conventions CFE_(EVS|ES|SB|TBL|TIME). The purpose of these mocks is to facilitate unit testing and development by intercepting the build process of the existing CFS_CF project.
+Concept of this project is to leave CFS' CF (CFDP) cfe_app code untouched and yet have it run as a stand-alone
+To do this we must mock out symbols for the other CFE modules (EVS, ES, SB, TBL, TIME) and intercept the
+configuration of at-least CF's main root CMakeLists.txt file.
 
 ## Project Structure
 
@@ -36,20 +38,6 @@ cfs-cf-mock
 ├── CMakeLists.txt               # Main CMake configuration file
 └── README.md                    # Project documentation
 ```
-
-## Usage
-
-To use the mock implementations in your project, follow these steps:
-
-1. **Include the Mock Project**: Add the mock project to your CMake configuration using `add_subdirectory()`.
-
-2. **Link Against Mocks**: Ensure that your target links against the mock libraries instead of the actual CFS libraries.
-
-3. **Build the Project**: Compile your project as usual. The build interceptor will redirect calls to the CFS dependencies to the mock implementations.
-
-## Contribution
-
-Contributions to enhance the mock implementations or improve the project structure are welcome. Please submit a pull request or open an issue for discussion.
 
 ## License
 

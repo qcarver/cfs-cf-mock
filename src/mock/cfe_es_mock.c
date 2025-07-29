@@ -1,30 +1,51 @@
 #include <stdio.h>
-#include "mock/cfe_es_mock.h"
+#include <stdint.h>
+#include <stdbool.h>
+#include "cfe/cfe_es.h"
 
 // Mock implementation of CFE Executive Services (ES) functions
 
-void CFE_ES_ApplicationInit(void)
+void CFE_ES_PerfLogAdd(uint32 Marker, uint32 EntryExit)
 {
-    // Mock behavior for application initialization
-    printf("Mock: CFE_ES_ApplicationInit called\n");
+    // Mock skeleton implementation
 }
 
-void CFE_ES_RunLoop(void)
+CFE_Status_t CFE_ES_WriteToSysLog(const char *SpecStringPtr, ...)
 {
-    // Mock behavior for running the application loop
-    printf("Mock: CFE_ES_RunLoop called\n");
+    // Mock skeleton implementation
+    return CFE_SUCCESS;
 }
 
-void CFE_ES_RegisterApp(void)
+bool CFE_ES_RunLoop(uint32 *RunStatus)
 {
-    // Mock behavior for registering an application
-    printf("Mock: CFE_ES_RegisterApp called\n");
+    // Mock skeleton implementation
+    return true;
 }
 
-void CFE_ES_GetAppID(void)
+void CFE_ES_ExitApp(uint32 ExitStatus)
 {
-    // Mock behavior for getting the application ID
-    printf("Mock: CFE_ES_GetAppID called\n");
+    // Mock skeleton implementation
 }
 
-// Add more mock functions as needed for other CFE ES functionalities
+CFE_Status_t CFE_ES_GetAppID(CFE_ES_AppId_t *AppIdPtr)
+{
+    // Mock skeleton implementation
+    return CFE_SUCCESS;
+}
+
+CFE_Status_t CFE_ES_GetAppName(char *AppName, CFE_ES_AppId_t AppId, size_t BufferLength)
+{
+    // Mock skeleton implementation
+    return CFE_SUCCESS;
+}
+
+CFE_Status_t CFE_ES_CreateChildTask(CFE_ES_TaskId_t *TaskIdPtr, const char *TaskName, CFE_ES_ChildTaskMainFuncPtr_t FunctionPtr, CFE_ES_StackPointer_t StackPtr, size_t StackSize, CFE_ES_TaskPriority_t Priority, uint32 Flags)
+{
+    // Mock skeleton implementation
+    return CFE_SUCCESS;
+}
+
+void CFE_ES_ResetCFE(uint32 RestartType)
+{
+    // Mock skeleton implementation
+}

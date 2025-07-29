@@ -1,21 +1,47 @@
-#include "cfe_evs_mock.h"
+#include <stdio.h>
+#include <stdint.h>
+#include "cfe/cfe_evs.h"
 
-void CFE_EVS_SendEvent(uint32 EventID, uint32 EventType, const char *Spec, ...)
+// Mock implementation of CFE Event Services (EVS) functions
+
+CFE_Status_t CFE_EVS_SendEvent(uint16 EventID, uint16 EventType, const char *Spec, ...)
 {
-    // Mock implementation: Simulate sending an event
+    // Mock skeleton implementation
+    return CFE_SUCCESS;
 }
 
-void CFE_EVS_Register(void *DataPtr, uint16 EventID, uint16 EventType)
+CFE_Status_t CFE_EVS_Register(CFE_EVS_BinFilter_t *Filters, uint16 NumFilteredEvents, uint16 FilterScheme)
 {
-    // Mock implementation: Simulate registering for events
+    // Mock skeleton implementation
+    return CFE_SUCCESS;
 }
 
-void CFE_EVS_Unregister(uint32 AppId)
+CFE_Status_t CFE_EVS_Unregister(void)
 {
-    // Mock implementation: Simulate unregistering from events
+    // Mock skeleton implementation
+    return CFE_SUCCESS;
 }
 
-void CFE_EVS_SendEventWithAppID(uint32 EventID, uint32 EventType, uint32 AppId, const char *Spec, ...)
+CFE_Status_t CFE_EVS_SendEventWithAppID(uint16 EventID, uint16 EventType, CFE_ES_AppId_t AppID, const char *Spec, ...)
 {
-    // Mock implementation: Simulate sending an event with App ID
+    // Mock skeleton implementation
+    return CFE_SUCCESS;
+}
+
+CFE_Status_t CFE_EVS_SendTimedEvent(CFE_TIME_SysTime_t Time, uint16 EventID, uint16 EventType, const char *Spec, ...)
+{
+    // Mock skeleton implementation
+    return CFE_SUCCESS;
+}
+
+CFE_Status_t CFE_EVS_ResetFilter(uint16 EventID)
+{
+    // Mock skeleton implementation
+    return CFE_SUCCESS;
+}
+
+CFE_Status_t CFE_EVS_ResetAllFilters(void)
+{
+    // Mock skeleton implementation
+    return CFE_SUCCESS;
 }

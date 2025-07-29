@@ -4,15 +4,44 @@
 
 #include <stdint.h>
 
-typedef struct
+/**
+**  \brief Data structure used to hold system time values
+**
+**  \par Description
+**       The #CFE_TIME_SysTime_t data structure is used to hold time
+**       values.  Time is referred to as the elapsed time (in seconds
+**       and subseconds) since a specified epoch time.  The subseconds
+**       field contains the number of 2^(-32) second intervals that have
+**       elapsed since the epoch.
+**
+*/
+typedef struct CFE_TIME_SysTime
 {
-    uint32_t Seconds;
-    uint32_t Microseconds;
+    uint32 Seconds;    /**< \brief Number of seconds since epoch */
+    uint32 Subseconds; /**< \brief Number of subseconds since epoch (LSB = 2^(-32) seconds) */
 } CFE_TIME_SysTime_t;
 
+/**
+** \brief Get the current spacecraft time
+**
+** \par Description
+**        This routine returns the current spacecraft time, which is the amount of
+**        time elapsed since the epoch as set in mission configuration.  The time returned
+**        is either TAI (no leap seconds) or UTC (including leap seconds).  This choice
+**        is made in the mission configuration file by defining either #CFE_MISSION_TIME_CFG_DEFAULT_TAI
+**        or #CFE_MISSION_TIME_CFG_DEFAULT_UTC as true at compile time.  To maintain re-usability
+**        across missions, most applications should be using this function
+**        rather than the specific routines for getting UTC/TAI directly.
+**
+** \par Assumptions, External Events, and Notes:
+**          None
+**
+** \return The current spacecraft time in default format
+**
+** \sa #CFE_TIME_GetTAI, #CFE_TIME_GetUTC, #CFE_TIME_GetMET,
+**     #CFE_TIME_GetMETseconds, #CFE_TIME_GetMETsubsecs
+**
+******************************************************************************/
 CFE_TIME_SysTime_t CFE_TIME_GetTime(void);
-void CFE_TIME_SetTime(CFE_TIME_SysTime_t time);
-void CFE_TIME_GetCurrentTime(CFE_TIME_SysTime_t *time);
-void CFE_TIME_IncrementTime(uint32_t increment);
 
-#endif // CFE_TIME_H
+#endif 

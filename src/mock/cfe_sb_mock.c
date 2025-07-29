@@ -1,35 +1,78 @@
-#include "cfe_sb_mock.h"
+#include <stdio.h>
+#include <stdint.h>
+#include <stdbool.h>
+#include "cfe/cfe_sb.h"
 
-void CFE_SB_Init(void)
+// Mock implementation of CFE Software Bus (SB) functions
+
+CFE_Status_t CFE_SB_TransmitMsg(const CFE_MSG_Message_t *MsgPtr, bool IsOrigination)
 {
-    // Mock initialization code for CFE SB
+    // Mock skeleton implementation
+    return CFE_SUCCESS;
 }
 
-CFE_SB_PipeId_t CFE_SB_CreatePipe(const char *PipeName)
+CFE_Status_t CFE_SB_SubscribeLocal(CFE_SB_MsgId_t MsgId, CFE_SB_PipeId_t PipeId, uint16 MsgLim)
 {
-    // Mock implementation for creating a software bus pipe
-    return 0; // Return a mock pipe ID
+    // Mock skeleton implementation
+    return CFE_SUCCESS;
 }
 
-int32 CFE_SB_Subscribe(CFE_SB_MsgId_t MsgId, CFE_SB_PipeId_t PipeId)
+CFE_Status_t CFE_SB_Subscribe(CFE_SB_MsgId_t MsgId, CFE_SB_PipeId_t PipeId)
 {
-    // Mock implementation for subscribing to a message
-    return CFE_SUCCESS; // Return success
+    // Mock skeleton implementation
+    return CFE_SUCCESS;
 }
 
-int32 CFE_SB_SendMsg(CFE_SB_Msg_t *MsgPtr)
+CFE_Status_t CFE_SB_ReleaseMessageBuffer(CFE_SB_Buffer_t *BufPtr)
 {
-    // Mock implementation for sending a message
-    return CFE_SUCCESS; // Return success
+    // Mock skeleton implementation
+    return CFE_SUCCESS;
 }
 
-int32 CFE_SB_RcvMsg(CFE_SB_Msg_t **MsgPtr, CFE_SB_PipeId_t PipeId, int32 Timeout)
+CFE_Status_t CFE_SB_DeletePipe(CFE_SB_PipeId_t PipeId)
 {
-    // Mock implementation for receiving a message
-    return CFE_SUCCESS; // Return success
+    // Mock skeleton implementation
+    return CFE_SUCCESS;
 }
 
-void CFE_SB_DeletePipe(CFE_SB_PipeId_t PipeId)
+CFE_SB_MsgId_t CFE_SB_ValueToMsgId(CFE_SB_MsgId_Atom_t MsgIdValue)
 {
-    // Mock implementation for deleting a software bus pipe
+    // Mock skeleton implementation
+    CFE_SB_MsgId_t msgId = {0};
+    return msgId;
+}
+
+CFE_SB_MsgId_Atom_t CFE_SB_MsgIdToValue(CFE_SB_MsgId_t MsgId)
+{
+    // Mock skeleton implementation
+    return 0;
+}
+
+CFE_Status_t CFE_SB_TransmitBuffer(CFE_SB_Buffer_t *BufPtr, bool IsOrigination)
+{
+    // Mock skeleton implementation
+    return CFE_SUCCESS;
+}
+
+void CFE_SB_TimeStampMsg(CFE_MSG_Message_t *MsgPtr)
+{
+    // Mock skeleton implementation
+}
+
+CFE_Status_t CFE_SB_ReceiveBuffer(CFE_SB_Buffer_t **BufPtr, CFE_SB_PipeId_t PipeId, int32 TimeOut)
+{
+    // Mock skeleton implementation
+    return CFE_SUCCESS;
+}
+
+CFE_Status_t CFE_SB_CreatePipe(CFE_SB_PipeId_t *PipeIdPtr, uint16 Depth, const char *PipeName)
+{
+    // Mock skeleton implementation
+    return CFE_SUCCESS;
+}
+
+CFE_SB_Buffer_t* CFE_SB_AllocateMessageBuffer(size_t MsgSize)
+{
+    // Mock skeleton implementation
+    return NULL;
 }
