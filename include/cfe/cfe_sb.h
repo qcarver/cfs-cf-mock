@@ -9,6 +9,11 @@ extern "C" {
 // Mock function declarations for CFE Software Bus (SB) services
 
 /**
+ * @brief Mock initialization function - call before using SB mock functionality
+ */
+void mock_sb_init(void);
+
+/**
  * @brief Transmit a message
  *
  * This routine sends the specified message to all subscribers.  The software

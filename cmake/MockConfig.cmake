@@ -4,27 +4,27 @@ include_directories(${MOCK_INCLUDE_DIR})
 
 # Mock CFE Event Services
 add_library(cfe_evs_mock STATIC
-    ${CMAKE_CURRENT_SOURCE_DIR}/../src/mock/cfe_evs_mock.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/../src/mock/mock_evs.cs
 )
 
 # Mock CFE Executive Services
 add_library(cfe_es_mock STATIC
-    ${CMAKE_CURRENT_SOURCE_DIR}/../src/mock/cfe_es_mock.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/../src/mock/mock_es.cs
 )
 
 # Mock CFE Software Bus
 add_library(cfe_sb_mock STATIC
-    ${CMAKE_CURRENT_SOURCE_DIR}/../src/mock/cfe_sb_mock.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/../src/mock/mock_sb.cs
 )
 
 # Mock CFE Table Services
 add_library(cfe_tbl_mock STATIC
-    ${CMAKE_CURRENT_SOURCE_DIR}/../src/mock/cfe_tbl_mock.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/../src/mock/mock_tbl.cs
 )
 
 # Mock CFE Time Services
 add_library(cfe_time_mock STATIC
-    ${CMAKE_CURRENT_SOURCE_DIR}/../src/mock/cfe_time_mock.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/../src/mock/mock_time.cs
 )
 
 # Link mock libraries to the interceptor

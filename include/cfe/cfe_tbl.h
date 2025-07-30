@@ -7,6 +7,11 @@
 CFE_TBL_FileDef_t CFE_TBL_FileDef = {#ObjName "\0", #TblName "\0", #Desc "\0", #Filename "\0", sizeof(ObjName)};
 
 /**
+ * @brief Mock initialization function - call before using TBL mock functionality
+ */
+void mock_tbl_init(void);
+
+/**
  * @brief Perform standard table maintenance on the specified table
  *
  * This function will perform the standard table maintenance on the table
@@ -112,6 +117,5 @@ CFE_Status_t CFE_TBL_Register(CFE_TBL_Handle_t *TblHandlePtr, const char *Name, 
  * @retval #CFE_TBL_ERR_NO_BUFFER_AVAIL   @copybrief CFE_TBL_ERR_NO_BUFFER_AVAIL
  */
 CFE_Status_t CFE_TBL_Load(CFE_TBL_Handle_t TblHandle, CFE_TBL_SrcEnum_t SrcType, const void *SrcDataPtr);
-
 
 #endif /* CFE_TBL_H */

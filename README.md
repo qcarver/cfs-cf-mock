@@ -10,31 +10,21 @@ The project is organized as follows:
 
 ```
 cfs-cf-mock
-├── src
-│   ├── mock
-│   │   ├── cfe_evs_mock.c       # Mock implementations for CFE Event Services
-│   │   ├── cfe_es_mock.c        # Mock implementations for CFE Executive Services
-│   │   ├── cfe_sb_mock.c        # Mock implementations for CFE Software Bus
-│   │   ├── cfe_tbl_mock.c       # Mock implementations for CFE Table Services
-│   │   └── cfe_time_mock.c      # Mock implementations for CFE Time Services
-│   └── interceptor
-│       └── build_interceptor.c   # Entry point for the build interceptor
-├── include
-│   ├── mock
-│   │   ├── cfe_evs_mock.h       # Header for CFE EVS mock functions
-│   │   ├── cfe_es_mock.h        # Header for CFE ES mock functions
-│   │   ├── cfe_sb_mock.h        # Header for CFE SB mock functions
-│   │   ├── cfe_tbl_mock.h       # Header for CFE TBL mock functions
-│   │   └── cfe_time_mock.h      # Header for CFE TIME mock functions
-│   └── cfe
-│       ├── cfe_evs.h            # Placeholder for actual CFE EVS header
-│       ├── cfe_es.h             # Placeholder for actual CFE ES header
-│       ├── cfe_sb.h             # Placeholder for actual CFE SB header
-│       ├── cfe_tbl.h            # Placeholder for actual CFE TBL header
-│       └── cfe_time.h           # Placeholder for actual CFE TIME header
-├── cmake
-│   ├── MockConfig.cmake         # Configuration for the mock project
-│   └── InterceptorConfig.cmake  # Configuration for the build interceptor
+├── src/
+│   ├── main.c                   # Main executable with CF_WakeupCmd test
+│   ├── mock_evs.c               # Mock implementations for CFE Event Services
+│   ├── mock_es.c                # Mock implementations for CFE Executive Services
+│   ├── mock_sb.c                # Mock implementations for CFE Software Bus
+│   ├── mock_tbl.c               # Mock implementations for CFE Table Services
+│   └── mock_time.c              # Mock implementations for CFE Time Services
+├── include/
+│   └── cfe/
+│       ├── cfe_evs.h            # CFE EVS header with mock init function
+│       ├── cfe_es.h             # CFE ES header with mock init function
+│       ├── cfe_sb.h             # CFE SB header with mock init function
+│       ├── cfe_tbl.h            # CFE TBL header with mock init function
+│       └── cfe_time.h           # CFE TIME header with mock init function
+├── CF/                          # Git submodule containing CF source code
 ├── CMakeLists.txt               # Main CMake configuration file
 └── README.md                    # Project documentation
 ```

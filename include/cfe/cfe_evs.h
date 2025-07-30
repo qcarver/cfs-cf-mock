@@ -4,6 +4,11 @@
 
 #include <stdint.h>
 
+/** 
+ ** \brief Mock initialization function - call before using EVS mock functionality 
+ **/
+void mock_evs_init(void);
+
 /**
 ** \brief Generate a software event.
 **

@@ -8,6 +8,11 @@
 #define CFE_ES_PerfLogEntry(id) (CFE_ES_PerfLogAdd(id, 0))
 
 /**
+ * @brief Mock initialization function - call before using ES mock functionality
+ */
+void mock_es_init(void);
+
+/**
  * @brief Add a mark to the performance log
  *
  * This function adds a mark to the performance log. The performance log is

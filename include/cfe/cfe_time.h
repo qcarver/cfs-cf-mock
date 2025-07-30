@@ -4,6 +4,11 @@
 
 #include <stdint.h>
 
+/** 
+ ** \brief Mock initialization function - call before using TIME mock functionality
+ **/
+void mock_time_init(void);
+
 /**
 **  \brief Data structure used to hold system time values
 **
@@ -44,4 +49,5 @@ typedef struct CFE_TIME_SysTime
 ******************************************************************************/
 CFE_TIME_SysTime_t CFE_TIME_GetTime(void);
 
-#endif 
+
+#endif
