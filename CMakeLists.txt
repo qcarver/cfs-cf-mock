@@ -1,7 +1,26 @@
+cmake_minimum_required(VERSION 3.10)
 project(CFS_CF_MOCK C)
 
-# Specify the include directories
-include_directories(include)
+# Set up overrides for CF submodule before including it
+set(CFS_IO_LIB_MISSION_DIR ${CMAKE_CURRENT_SOURCE_DIR})
+set(CFE_EDS_ENABLED_BUILD FALSE)
+set(ENABLE_UNIT_TESTS FALSE)
+
+# Override add_cfe_app and add_cfe_tables to do nothing
+function(add_cfe_app)
+    # Do nothing - override CF's function
+endfunction()
+
+function(add_cfe_tables)
+    # Do nothing - override CF's function  
+endfunction()
+
+# Add CF as a submodule
+add_subdirectory(CF EXCLUDE_FROM_ALL)
+
+# Specify the include directories - our mock CFE headers take precedence
+include_directories(BEFORE include/cfe)
+include_directories(include/mock)
 
 # Specify the source files for the mock implementations
 set(MOCK_SRC_FILES
@@ -10,17 +29,37 @@ set(MOCK_SRC_FILES
   src/mock/cfe_sb_mock.c
   src/mock/cfe_tbl_mock.c
   src/mock/cfe_time_mock.c
-  src/interceptor/build_interceptor.c
 )
 
 # Create the mock library
 add_library(cfs_cf_mock STATIC ${MOCK_SRC_FILES})
 
 # Specify the include directories for the mock library
-target_include_directories(cfs_cf_mock PUBLIC include/mock include/cfe)
+target_include_directories(cfs_cf_mock PUBLIC 
+  include/mock 
+  include/cfe
+  CF/fsw/inc  # Include CF headers
+)
 
-# Optionally, you can add any necessary configurations or dependencies here
-# For example, linking with other libraries if needed
+# Get CF source files (assuming they're in CF/fsw/src)
+file(GLOB CF_SRC_FILES "CF/fsw/src/*.c")
+
+# Create executable with main function
+add_executable(cf_mock_test 
+  src/main.c
+  ${CF_SRC_FILES}
+)
+
+# Link the executable with our mock library
+target_link_libraries(cf_mock_test cfs_cf_mock)
+
+# Set include directories for the executable
+target_include_directories(cf_mock_test PRIVATE
+  include/cfe
+  include/mock
+  CF/fsw/inc
+  CF/fsw/src # alas, CF also puts include files in here.
+)
 
 # Install the mock library and headers
 install(TARGETS cfs_cf_mock
