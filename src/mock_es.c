@@ -1,51 +1,48 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <stdbool.h>
+#include <stdarg.h>  // Add this for va_list, va_start, va_end
 #include "cfe/cfe_es.h"
+#include "cfe/cfe_error.h"
 
 // Mock implementation of CFE Executive Services (ES) functions
 
+//declared in main, is "1" until Ctrl-C or ExitApp
+extern volatile uint32_t AppRunStatus;
+
+//looking for PerfLogEntry or PerfLogExit? see .h
+
 void CFE_ES_PerfLogAdd(uint32 Marker, uint32 EntryExit)
 {
-    // Mock skeleton implementation
+    // Delegate mock WriteToSysLog for consstentancy
+    CFE_ES_WriteToSysLog("PerfLog: Marker=%u, EntryExit=%u", Marker, EntryExit);
 }
 
 CFE_Status_t CFE_ES_WriteToSysLog(const char *SpecStringPtr, ...)
 {
-    // Mock skeleton implementation
-    return CFE_SUCCESS;
+    bool fail = false;
+    va_list args;
+    va_start(args, SpecStringPtr);
+    fail = vprintf(SpecStringPtr, args) < 0;
+    printf("\n");
+    va_end(args);
+    // Maybe a bad error spoof, but atleast its one possible failure mode
+    return (fail) ? CFE_ES_ERR_SYS_LOG_FULL :  CFE_SUCCESS;
 }
 
 bool CFE_ES_RunLoop(uint32 *RunStatus)
 {
     // Mock skeleton implementation
-    return true;
+    return AppRunStatus != 0;
 }
 
 void CFE_ES_ExitApp(uint32 ExitStatus)
 {
-    // Mock skeleton implementation
+    AppRunStatus = 0;
 }
 
 CFE_Status_t CFE_ES_GetAppID(CFE_ES_AppId_t *AppIdPtr)
 {
     // Mock skeleton implementation
     return CFE_SUCCESS;
-}
-
-CFE_Status_t CFE_ES_GetAppName(char *AppName, CFE_ES_AppId_t AppId, size_t BufferLength)
-{
-    // Mock skeleton implementation
-    return CFE_SUCCESS;
-}
-
-CFE_Status_t CFE_ES_CreateChildTask(CFE_ES_TaskId_t *TaskIdPtr, const char *TaskName, CFE_ES_ChildTaskMainFuncPtr_t FunctionPtr, CFE_ES_StackPointer_t StackPtr, size_t StackSize, CFE_ES_TaskPriority_t Priority, uint32 Flags)
-{
-    // Mock skeleton implementation
-    return CFE_SUCCESS;
-}
-
-void CFE_ES_ResetCFE(uint32 RestartType)
-{
-    // Mock skeleton implementation
 }
