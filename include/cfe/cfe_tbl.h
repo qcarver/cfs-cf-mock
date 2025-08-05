@@ -6,6 +6,10 @@
 #define CFE_TBL_FILEDEF(ObjName, TblName, Desc, Filename) \
 CFE_TBL_FileDef_t CFE_TBL_FileDef = {#ObjName "\0", #TblName "\0", #Desc "\0", #Filename "\0", sizeof(ObjName)};
 
+/** 
+* @brief A use-case minimalize version of CF_ConfigTable which should sate anything CF will want.
+*/
+
 /**
  * @brief Mock initialization function - call before using TBL mock functionality
  */
