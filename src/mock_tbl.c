@@ -2,7 +2,7 @@
 #include <stdint.h>
 #include "cfe/cfe_tbl.h"
 
-// Mock implementation of CFE Table Services (TBL) functions
+// Mock implementation of CFE Table Services (TBL) functions... TODO: good values? TBD
 CF_ConfigTable_t cf_mock_config = {
     .DownlinkChanEnabled = {1, 0},     // Enable CH0, disable CH1 (or tweak as needed)
     .RxPlaybackChan = 0,               // Use CH0 for RX playback
@@ -12,10 +12,6 @@ CF_ConfigTable_t cf_mock_config = {
     .InactivityTimeout = 30,           // 30 seconds before session timeout
     .OutgoingFileChunkSize = 512       // Chunk outgoing files into 128-byte segments
 };
-
-void CFE_TBL_Init(void) {
-    // Mock implementation for CFE_TBL_Init
-}
 
 CFE_Status_t CFE_TBL_Manage(CFE_TBL_Handle_t TblHandle)
 {
@@ -47,21 +43,6 @@ CFE_Status_t CFE_TBL_Register(CFE_TBL_Handle_t *TblHandlePtr, const char *Name, 
 
 CFE_Status_t CFE_TBL_Load(CFE_TBL_Handle_t TblHandle, CFE_TBL_SrcEnum_t SrcType, const void *SrcDataPtr)
 {
-    // Mock skeleton implementation
-    return CFE_SUCCESS;
-}
-
-int32 CFE_TBL_Unload(uint32 TableHandle) {
-    // Mock implementation for CFE_TBL_Unload
-    return CFE_SUCCESS;
-}
-
-int32 CFE_TBL_Delete(uint32 TableHandle) {
-    // Mock implementation for CFE_TBL_Delete
-    return CFE_SUCCESS;
-}
-
-int32 CFE_TBL_GetStatus(uint32 TableHandle) {
-    // Mock implementation for CFE_TBL_GetStatus
+    // our mock config is just a field, already 'loaded' ;)
     return CFE_SUCCESS;
 }
