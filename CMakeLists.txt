@@ -1,6 +1,52 @@
 cmake_minimum_required(VERSION 3.10)
 project(CFS_CF_MOCK C)
 
+# Directory structure:
+# cfdp-standalone/
+# ├── CMakeLists.txt          <-- <<<YOU ARE HERE>>> 
+# ├── cf/                     <-- your standalone CFDP logic
+# │   └── CMakeLists.txt
+# ├── osal/                   <-- OSAL (as a submodule)
+# ├── build/                  <-- out-of-source build dir
+# ├── install/
+# │   └── osal/               <-- OSAL headers + libs go here
+# └── cmake/                  <-- optional custom find modules
+
+# <osal>
+# Create directories if they don't exist
+file(MAKE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/install ${CMAKE_CURRENT_BINARY_DIR}/osal)
+
+# Do OSAL stuff first. CF will be looking for it
+# OSAL has no dependencies, can build & install as an "ExternalProject" (CMAKE module emulating a user build.)
+include(ExternalProject)
+ExternalProject_Add(osal_project
+  SOURCE_DIR ${CMAKE_SOURCE_DIR}/osal
+  BINARY_DIR ${CMAKE_BINARY_DIR}/osal
+  CMAKE_ARGS
+    -DOSAL_SYSTEM_BSPTYPE=generic-linux
+    -DCMAKE_INSTALL_PREFIX=${CMAKE_SOURCE_DIR}/install/osal
+  INSTALL_COMMAND ${CMAKE_COMMAND} --build <BINARY_DIR> --target install
+  BUILD_ALWAYS 1
+  EXCLUDE_FROM_ALL TRUE
+)
+
+# Path to OSAL install
+set(OSAL_INSTALL_DIR "${CMAKE_SOURCE_DIR}/install/osal")
+set(OSAL_INCLUDE_DIR "${OSAL_INSTALL_DIR}/include")
+set(OSAL_LIB_DIR     "${OSAL_INSTALL_DIR}/lib")
+
+# Make sure OSAL is usable
+if(NOT EXISTS "${OSAL_LIB_DIR}/libosal.a")
+  message(FATAL_ERROR "OSAL static lib not found at ${OSAL_LIB_DIR}/libosal.a. \
+Did you run OSAL's CMake build + install step?")
+endif()
+
+# Include + link OSAL
+include_directories(${OSAL_INCLUDE_DIR})
+link_directories(${OSAL_LIB_DIR})
+
+# </osal>
+
 # Set up overrides for CF submodule before including it
 set(CFS_IO_LIB_MISSION_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 set(CFE_EDS_ENABLED_BUILD FALSE)

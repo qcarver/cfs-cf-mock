@@ -1,5 +1,7 @@
+#define _POSIX_C_SOURCE 199309L
 #include <stdio.h>
 #include <stdint.h>
+#include <time.h>
 #include "cfe/cfe_time.h"
 
 // Mock implementation of CFE Time Services (TIME) functions

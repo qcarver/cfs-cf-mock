@@ -7,6 +7,8 @@
 #define CFE_ES_PerfLogExit(id) (CFE_ES_PerfLogAdd(id, 1))
 #define CFE_ES_PerfLogEntry(id) (CFE_ES_PerfLogAdd(id, 0))
 
+#include "common_types.h"
+
 /**
  * @brief Mock initialization function - call before using ES mock functionality
  */
