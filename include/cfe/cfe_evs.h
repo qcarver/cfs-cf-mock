@@ -2,7 +2,7 @@
 #ifndef CFE_EVS_H
 #define CFE_EVS_H
 
-#include <stdint.h>
+#include "common_types.h" 
 
 /** 
  ** \brief Mock initialization function - call before using EVS mock functionality 

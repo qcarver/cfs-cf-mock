@@ -2,6 +2,8 @@
 #ifndef CFE_SB_H
 #define CFE_SB_H
 
+#include "common_types.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif

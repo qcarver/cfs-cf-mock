@@ -1,7 +1,7 @@
 #ifndef CFE_TBL_H
 #define CFE_TBL_H
 
-#include <stdint.h>
+#include "common_types.h"
 
 #define CFE_TBL_FILEDEF(ObjName, TblName, Desc, Filename) \
 CFE_TBL_FileDef_t CFE_TBL_FileDef = {#ObjName "\0", #TblName "\0", #Desc "\0", #Filename "\0", sizeof(ObjName)};

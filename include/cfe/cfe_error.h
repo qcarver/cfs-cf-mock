@@ -1,7 +1,7 @@
 #ifndef CFE_ERROR_H
 #define CFE_ERROR_H
 
-#include <stdint.h>
+#include "common_types.h" 
 
 /**
  * \brief cFE Status type for readability and eventually type safety

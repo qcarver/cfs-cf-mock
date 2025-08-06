@@ -6,12 +6,11 @@
 
 CFE_TIME_SysTime_t CFE_TIME_GetTime(void)
 {
-    // Mock skeleton implementation
-    CFE_TIME_SysTime_t time = {0, 0};
+    struct timespec ts;
+    clock_gettime(CLOCK_REALTIME, &ts);
 
-    // Set time to a fixed value
-    time.Seconds = 1234567890; // Example fixed time
-    time.Subseconds = 0; // Example fixed subseconds
-
-    return time;
+    CFE_TIME_SysTime_t sysTime;
+    sysTime.Seconds = ts.tv_sec;
+    sysTime.Subseconds = (uint32)((((uint64)ts.tv_nsec) << 32) / 1000000000);  // Convert nsec to cFS-style subseconds
+    return sysTime;
 }

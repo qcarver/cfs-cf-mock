@@ -2,7 +2,7 @@
 #ifndef CFE_TIME_H
 #define CFE_TIME_H
 
-#include <stdint.h>
+#include "common_types.h"
 
 /** 
  ** \brief Mock initialization function - call before using TIME mock functionality
