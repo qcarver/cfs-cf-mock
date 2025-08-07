@@ -4,6 +4,11 @@
 
 #include "common_types.h" 
 
+/**
+ * @brief Binary event filtering scheme
+ */
+#define CFE_EVS_EventFilter_BINARY 0
+
 enum CFE_EVS_EventType
 {
     CFE_EVS_EventType_DEBUG = 1,        // Debug messages

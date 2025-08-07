@@ -8,38 +8,44 @@
 extern "C" {
 #endif
 
+/*
+ * Abstract Message Base Types
+ *
+ * The concrete definition of these is provided by "cfe_msg_hdr.h" which is
+ * user-selectable depending on the actual desired message definition. These
+ * abstract types are used in the API definition; the API is defined based
+ * on these abstract types, independent of the actual message definition.
+ */
+
+/**
+ * @brief cFS generic base message
+ */
+typedef union CFE_MSG_Message CFE_MSG_Message_t;
+
 /**
  * @brief Option used with #CFE_SB_ReceiveBuffer to request immediate pipe status
  */
 #define CFE_SB_POLL 0  
 
 /**
- * @brief Invalid Message ID
+ * @brief Invalid Message ID for static/compile-time data initialization
  */
-#define CFE_INVALID_MSG_ID  ((CFE_SB_MsgId_t)-1) 
+#define CFE_SB_INVALID_MSG_ID ((CFE_SB_MsgId_t)-1)
 
 /**
- * @brief Time Out. Packet not received in the time given in the "timeout" parameter.
+ * @brief Time Out. Packet not received in the time given in the "timeout" parameter
  */
 #define CFE_SB_TIME_OUT ((CFE_Status_t)0xca000001)
 
 /**
- * @brief No Message. There was no message on the pipe.
+ * @brief No Message. There was not a message on the pipe when polling
  */
 #define CFE_SB_NO_MESSAGE ((CFE_Status_t)0xca000002)
 
 // SB Types
 
-/** \brief Software Bus generic message */
-typedef union CFE_SB_Msg
-{
-    CFE_MSG_Message_t Msg;        /**< \brief Base message type without enforced alignment */
-    long long int     LongInt;    /**< \brief Align to support Long Integer */
-    long double       LongDouble; /**< \brief Align to support Long Double */
-} CFE_SB_Buffer_t;
-
 /**
- * @brief  CFE_SB_MsgId_Atom_t primitive type definition
+ * @brief CFE_SB_MsgId_Atom_t primitive type definition
  *
  * This is an integer type capable of holding any Message ID value
  * Note: This value is limited via #CFE_PLATFORM_SB_HIGHEST_VALID_MSGID
@@ -47,7 +53,7 @@ typedef union CFE_SB_Msg
 typedef uint32 CFE_SB_MsgId_Atom_t;
 
 /**
- * @brief  CFE_SB_MsgId_t type definition
+ * @brief CFE_SB_MsgId_t type definition
  *
  * Software Bus message identifier used in many SB APIs
  *
@@ -59,16 +65,28 @@ typedef uint32 CFE_SB_MsgId_Atom_t;
  */
 typedef CFE_SB_MsgId_Atom_t CFE_SB_MsgId_t;
 
-/** \brief  CFE_SB_PipeId_t to primitive type definition
+/**
+ * @brief CFE_SB_PipeId_t to primitive type definition
  *
  * Software Bus pipe identifier used in many SB APIs, as well as SB Telemetry messages
  * and data files.
  */
-typedef CFE_RESOURCEID_BASE_TYPE CFE_SB_PipeId_t;
+typedef uint32 CFE_SB_PipeId_t;
 
+/**
+ * @brief Reserved Message ID value for invalid/uninitialized message IDs
+ */
+#define CFE_SB_MSGID_RESERVED ((CFE_SB_MsgId_t)0)
 
-
-
+/**
+ * @brief Software Bus generic message buffer with alignment
+ */
+typedef union CFE_SB_Msg
+{
+    CFE_MSG_Message_t Msg;        /**< \brief Base message type without enforced alignment */
+    long long int     LongInt;    /**< \brief Align to support Long Integer */
+    long double       LongDouble; /**< \brief Align to support Long Double */
+} CFE_SB_Buffer_t;
 
 // Mock function declarations for CFE Software Bus (SB) services
 
