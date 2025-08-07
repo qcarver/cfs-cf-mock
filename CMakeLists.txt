@@ -26,10 +26,7 @@ project(CFS_CF_MOCK C)
 
 # <osal>
 # Create directories if they don't exist
-file(MAKE_DIRECTORY 
-  ${CMAKE_CURRENT_SOURCE_DIR}/install 
-  ${CMAKE_CURRENT_BINARY_DIR}/osal
-)
+file(MAKE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/install )
 
 # Do OSAL stuff first. CF will be looking for it
 # OSAL has no dependencies, can build & install as an "ExternalProject" (CMAKE module emulating a user build.)
@@ -41,7 +38,7 @@ ExternalProject_Add(osal_project
     -DOSAL_SYSTEM_BSPTYPE=generic-linux
     -DCMAKE_INSTALL_PREFIX=${CMAKE_SOURCE_DIR}/install/osal
   INSTALL_COMMAND ${CMAKE_COMMAND} --build <BINARY_DIR> --target install
-  BUILD_ALWAYS 1
+  BUILD_ALWAYS 0 # Change to 1 if you want to rebuild OSAL every time 
   EXCLUDE_FROM_ALL TRUE
 )
 
@@ -94,6 +91,8 @@ set(MOCK_SRC_FILES
 # Create the mock library
 add_library(cfs_cf_mock STATIC ${MOCK_SRC_FILES})
 
+add_dependencies(cfs_cf_mock osal_project)
+
 # Specify the include directories for the mock library
 target_include_directories(cfs_cf_mock PUBLIC 
   include/cfe
@@ -112,19 +111,13 @@ add_executable(cf_mock_test
 add_dependencies(cf_mock_test osal_project)
 
 # Link the executable with our mock library
-target_link_libraries(cf_mock_test cfs_cf_mock)
+target_link_libraries(cf_mock_test cfs_cf_mock osal)
 
 # Set include directories for the executable
 target_include_directories(cf_mock_test PRIVATE
   include/cfe
   CF/fsw/inc
   CF/fsw/src # alas, CF also puts include files in here.
-)
-
-# Install the mock library and headers
-install(TARGETS cfs_cf_mock
-  EXPORT cfs_cf_mockTargets
-  ARCHIVE DESTINATION lib
 )
 
 install(DIRECTORY include/cfe/ DESTINATION include/cfe)
