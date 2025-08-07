@@ -1,20 +1,35 @@
 cmake_minimum_required(VERSION 3.10)
 project(CFS_CF_MOCK C)
 
-# Directory structure:
+# Okay, here's the gist of this CMake file. We are trying to build CF (aka CFDP)
+# but it's usually build as part of the larger CFS (Core Flight System) project.
+# To make it feel at home, we will mock out the parts of CFS that CF depends on.
+# Additionally, CF depends on OSAL (the OS Abstraction Layer), for OS calls. So
+# we have to build some version of CFS' OSAL as well.
+
+# TL;DR: This CMake file sets up a standalone build for CFDP (CF) with mocked CFS and real OSAL dependencies. OSAL is standalone so it is build first, then CF is built with mocked CFS components.
+
+# useful links:
+# https://github.com/nasa/cf
+# https://github.com/nasa/cfs
+# https://github.com/nasa/osal
+
+# Root Directory structure:
 # cfdp-standalone/
 # ├── CMakeLists.txt          <-- <<<YOU ARE HERE>>> 
-# ├── cf/                     <-- your standalone CFDP logic
-# │   └── CMakeLists.txt
+# ├── cf/                     <-- CF (as a submodule) 
 # ├── osal/                   <-- OSAL (as a submodule)
-# ├── build/                  <-- out-of-source build dir
-# ├── install/
-# │   └── osal/               <-- OSAL headers + libs go here
-# └── cmake/                  <-- optional custom find modules
+# ├── include/                <-- mocks for CF-used declarations typically in CFS
+# ├── src/                    <-- mocks for CF-used definitions typically in CFS 
+# ├── build/                  <-- created at CMake time if not already present 
+# └── install/                <-- created at CMake time if not already present
 
 # <osal>
 # Create directories if they don't exist
-file(MAKE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/install ${CMAKE_CURRENT_BINARY_DIR}/osal)
+file(MAKE_DIRECTORY 
+  ${CMAKE_CURRENT_SOURCE_DIR}/install 
+  ${CMAKE_CURRENT_BINARY_DIR}/osal
+)
 
 # Do OSAL stuff first. CF will be looking for it
 # OSAL has no dependencies, can build & install as an "ExternalProject" (CMAKE module emulating a user build.)
@@ -93,6 +108,8 @@ add_executable(cf_mock_test
   src/main.c
   ${CF_SRC_FILES}
 )
+# Ensure OSAL is built before cf_mock_test
+add_dependencies(cf_mock_test osal_project)
 
 # Link the executable with our mock library
 target_link_libraries(cf_mock_test cfs_cf_mock)
