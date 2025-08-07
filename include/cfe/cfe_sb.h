@@ -8,6 +8,68 @@
 extern "C" {
 #endif
 
+/**
+ * @brief Option used with #CFE_SB_ReceiveBuffer to request immediate pipe status
+ */
+#define CFE_SB_POLL 0  
+
+/**
+ * @brief Invalid Message ID
+ */
+#define CFE_INVALID_MSG_ID  ((CFE_SB_MsgId_t)-1) 
+
+/**
+ * @brief Time Out. Packet not received in the time given in the "timeout" parameter.
+ */
+#define CFE_SB_TIME_OUT ((CFE_Status_t)0xca000001)
+
+/**
+ * @brief No Message. There was no message on the pipe.
+ */
+#define CFE_SB_NO_MESSAGE ((CFE_Status_t)0xca000002)
+
+// SB Types
+
+/** \brief Software Bus generic message */
+typedef union CFE_SB_Msg
+{
+    CFE_MSG_Message_t Msg;        /**< \brief Base message type without enforced alignment */
+    long long int     LongInt;    /**< \brief Align to support Long Integer */
+    long double       LongDouble; /**< \brief Align to support Long Double */
+} CFE_SB_Buffer_t;
+
+/**
+ * @brief  CFE_SB_MsgId_Atom_t primitive type definition
+ *
+ * This is an integer type capable of holding any Message ID value
+ * Note: This value is limited via #CFE_PLATFORM_SB_HIGHEST_VALID_MSGID
+ */
+typedef uint32 CFE_SB_MsgId_Atom_t;
+
+/**
+ * @brief  CFE_SB_MsgId_t type definition
+ *
+ * Software Bus message identifier used in many SB APIs
+ *
+ * Currently this is directly mapped to the underlying holding type (not wrapped) for
+ * compatibility with existing usage semantics in apps (mainly switch/case statements)
+ *
+ * @note In a future version it could become a type-safe wrapper similar to the route index,
+ * to avoid message IDs getting mixed between other integer values.
+ */
+typedef CFE_SB_MsgId_Atom_t CFE_SB_MsgId_t;
+
+/** \brief  CFE_SB_PipeId_t to primitive type definition
+ *
+ * Software Bus pipe identifier used in many SB APIs, as well as SB Telemetry messages
+ * and data files.
+ */
+typedef CFE_RESOURCEID_BASE_TYPE CFE_SB_PipeId_t;
+
+
+
+
+
 // Mock function declarations for CFE Software Bus (SB) services
 
 /**

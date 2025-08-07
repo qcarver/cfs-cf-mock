@@ -3,7 +3,31 @@
 
 #include "common_types.h"
 
-#define CFE_TBL_FILEDEF(ObjName, TblName, Desc, Filename) \
+/** 
+ * @brief The subset of CFETBLTypeOptions used by CF (all for naught)
+ */
+#define CFE_TBL_OPT_SNGL_BUFFER (0x0000)  /**< \brief Single buffer table */
+#define CFE_TBL_OPT_LOAD_DUMP   (0x0000)  /**< \brief Load/Dump table */
+
+/**
+ * @brief Updated. Table was updated (nominal) since last access
+ */
+#define CFE_TBL_INFO_UPDATED ((CFE_Status_t)0x4c00000E)
+
+/**
+ * @brief Table Handle primitive
+ */
+typedef int16 CFE_TBL_Handle_t;
+
+/** 
+ * @brief Table Source 
+ */
+typedef enum CFE_TBL_SrcEnum
+{
+    CFE_TBL_SRC_FILE = 0, // SrcDataPtr points to char foofilename[] of the data file.
+    CFE_TBL_SRC_ADDRESS   // SrcDataPtr points to a pointer of the data buffer.(not used by mocks - posterity) 
+} CFE_TBL_SrcEnum_t;
+
 CFE_TBL_FileDef_t CFE_TBL_FileDef = {#ObjName "\0", #TblName "\0", #Desc "\0", #Filename "\0", sizeof(ObjName)};
 
 /**
