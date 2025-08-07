@@ -38,14 +38,7 @@ typedef struct CFE_TIME_SysTime
 **        across missions, most applications should be using this function
 **        rather than the specific routines for getting UTC/TAI directly.
 **
-** \par Assumptions, External Events, and Notes:
-**          None
-**
 ** \return The current spacecraft time in default format
-**
-** \sa #CFE_TIME_GetTAI, #CFE_TIME_GetUTC, #CFE_TIME_GetMET,
-**     #CFE_TIME_GetMETseconds, #CFE_TIME_GetMETsubsecs
-**
 ******************************************************************************/
 CFE_TIME_SysTime_t CFE_TIME_GetTime(void);
 

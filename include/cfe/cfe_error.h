@@ -4,23 +4,17 @@
 #include "common_types.h" 
 
 /**
- * \brief cFE Status type for readability and eventually type safety
+ * @brief cFE Status type for readability and type safety
  */
 typedef int32_t CFE_Status_t;
 
 /**
  * @brief Successful execution
- *
- *  Operation was performed successfully
  */
 #define CFE_SUCCESS ((CFE_Status_t)0)
 
 /**
- * @brief System Log Full
- *
- *  The cFE system Log is full.
- *  This error means the message was not logged at all
- *
+ * @brief System Log Full - message was not logged
  */
 #define CFE_ES_ERR_SYS_LOG_FULL ((CFE_Status_t)0xc4000006)
 
