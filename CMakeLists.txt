@@ -95,8 +95,9 @@ add_dependencies(cfs_cf_mock osal_project)
 
 # Specify the include directories for the mock library
 target_include_directories(cfs_cf_mock PUBLIC 
-  include/cfe
-  CF/fsw/inc  # Include CF headers
+  ${CMAKE_CURRENT_SOURCE_DIR}/include/cfe
+  ${CMAKE_CURRENT_SOURCE_DIR}/CF/fsw/inc  # Include CF headers
+  ${CMAKE_CURRENT_SOURCE_DIR}/CF/fsw/src  # unfortunately, there are ".h" files here too
 )
 
 # Get CF source files (assuming they're in CF/fsw/src)

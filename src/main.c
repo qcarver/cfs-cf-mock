@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include "cf_cmd.h"
-#include "mock/cfe_evs_mock.h"
-#include "mock/cfe_es_mock.h"
-#include "mock/cfe_sb_mock.h"
-#include "mock/cfe_tbl_mock.h"
-#include "mock/cfe_time_mock.h"
+#include "cfe/cfe_evs.h"
+#include "cfe/cfe_es.h"
+#include "cfe/cfe_sb.h"
+#include "cfe/cfe_tbl.h"
+#include "cfe/cfe_time.h"
 #include <signal.h>
 #include <stdint.h>
 

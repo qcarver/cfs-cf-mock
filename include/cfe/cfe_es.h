@@ -8,6 +8,12 @@
 #define CFE_ES_PerfLogEntry(id) (CFE_ES_PerfLogAdd(id, 0))
 
 #include "common_types.h"
+#include "cfe/cfe_idk.h"
+
+/**
+ * @brief Executive Services Application ID type 
+ */
+typedef CFE_RESOURCEID_BASE_TYPE CFE_ES_AppId_t;
 
 /**
  * @brief Application run status values

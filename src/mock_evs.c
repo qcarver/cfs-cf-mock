@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <stdint.h>
+#include <stdarg.h>
 #include "cfe/cfe_evs.h"
 #include "cfe/cfe_es.h"
+#include "cfe/cfe_time.h"
 
 // Mock implementation of CFE Event Services (EVS) functions
 

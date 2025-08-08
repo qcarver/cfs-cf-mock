@@ -2,6 +2,7 @@
 #define CFE_TBL_H
 
 #include "common_types.h"
+#include "cfe/cfe_idk.h"
 
 /** 
  * @brief The subset of CFETBLTypeOptions used by CF (all for naught)
@@ -13,6 +14,11 @@
  * @brief Updated. Table was updated (nominal) since last access
  */
 #define CFE_TBL_INFO_UPDATED ((CFE_Status_t)0x4c00000E)
+
+/**
+ * @brief Table Callback Function pointer type
+ */
+typedef int32 (*CFE_TBL_CallbackFuncPtr_t)(void *TblPtr);
 
 /**
  * @brief Table Handle primitive

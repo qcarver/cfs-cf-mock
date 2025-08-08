@@ -9,6 +9,16 @@
  */
 #define CFE_EVS_EventFilter_BINARY 0
 
+/**
+ * @brief Event message filter definition structure
+ */
+typedef struct CFE_EVS_BinFilter
+{
+    uint16 EventID; /**< @brief Numerical event identifier */
+    uint16 Mask;    /**< @brief Binary filter mask value */
+
+} CFE_EVS_BinFilter_t;
+
 enum CFE_EVS_EventType
 {
     CFE_EVS_EventType_DEBUG = 1,        // Debug messages

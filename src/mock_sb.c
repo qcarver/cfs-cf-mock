@@ -2,6 +2,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "cfe/cfe_sb.h"
+#include "cfe/cfe_idk.h"
 
 // Mock implementation of CFE Software Bus (SB) functions
 

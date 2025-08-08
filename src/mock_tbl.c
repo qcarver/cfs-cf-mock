@@ -2,6 +2,17 @@
 #include <stdint.h>
 #include "cfe/cfe_tbl.h"
 
+// Add a mock definition for CF_ConfigTable_t if not already included
+typedef struct {
+    uint8_t DownlinkChanEnabled[2];
+    uint8_t RxPlaybackChan;
+    uint16_t PlaybackChunkSize;
+    uint16_t AckTimeout;
+    uint16_t NakTimeout;
+    uint16_t InactivityTimeout;
+    uint16_t OutgoingFileChunkSize;
+} CF_ConfigTable_t;
+
 // Mock implementation of CFE Table Services (TBL) functions... TODO: good values? TBD
 CF_ConfigTable_t cf_mock_config = {
     .DownlinkChanEnabled = {1, 0},     // Enable CH0, disable CH1 (or tweak as needed)
